@@ -6,6 +6,7 @@ import com.example.journal.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class JournalEntryService {
         return journalEntryRepository.save(journalEntry);
     }
 
+    @Transactional
     public JournalEntity saveEntryForUser(JournalEntity journalEntry, User user){
         JournalEntity savedJournal = journalEntryRepository.save(journalEntry);
         user.getJournalEntities().add(savedJournal);
