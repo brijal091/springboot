@@ -40,15 +40,17 @@ public class SpringSecurity {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/journal/**", "/public/**").authenticated()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/journal/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form.permitAll())
                 .httpBasic(basic -> {})
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
+
         return http.build();
     }
 }

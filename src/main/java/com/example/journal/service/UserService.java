@@ -34,7 +34,7 @@ public class UserService {
             return null;
         }
         existingUser.setUsername(newEntry.getUsername() != null && !newEntry.getUsername().isBlank()? newEntry.getUsername():existingUser.getUsername());
-        existingUser.setPassword(newEntry.getPassword() != null && !newEntry.getPassword().isBlank()? newEntry.getPassword(): existingUser.getPassword());
+        existingUser.setPassword(passwordEncoder.encode(newEntry.getPassword() != null && !newEntry.getPassword().isBlank()? newEntry.getPassword(): existingUser.getPassword()));
         this.saveEntry(existingUser);
         return existingUser;
     }
@@ -50,8 +50,8 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public User deleteEntry(ObjectId id){
-        User currentEntry = userRepository.findById(id).orElse(null);
+    public User deleteEntry(String username){
+        User currentEntry = userRepository.findByUsername(username);
          if (currentEntry != null) {
              userRepository.delete(currentEntry);
          }

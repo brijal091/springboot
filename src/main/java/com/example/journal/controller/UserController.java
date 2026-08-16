@@ -30,6 +30,12 @@ public class UserController {
         return userService.updateEntry(username, updatedUser);
     }
 
+    @DeleteMapping
+    public User deleteUser(){
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userService.deleteEntry(username);
+    }
 
 }

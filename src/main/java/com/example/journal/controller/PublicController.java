@@ -24,8 +24,4 @@ public class PublicController {
         userService.saveNewUser(user);
     }
 
-    @DeleteMapping("/user/{id}")
-    public User deleteUser(@PathVariable ObjectId id){
-        return userService.deleteEntry(id);
-    }
 }
