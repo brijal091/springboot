@@ -35,7 +35,7 @@ public class UserService {
         }
         existingUser.setUsername(newEntry.getUsername() != null && !newEntry.getUsername().isBlank()? newEntry.getUsername():existingUser.getUsername());
         existingUser.setPassword(passwordEncoder.encode(newEntry.getPassword() != null && !newEntry.getPassword().isBlank()? newEntry.getPassword(): existingUser.getPassword()));
-        this.saveEntry(existingUser);
+        this.saveNewUser(existingUser);
         return existingUser;
     }
     public List<User> getAll(){
@@ -56,5 +56,8 @@ public class UserService {
              userRepository.delete(currentEntry);
          }
          return currentEntry;
+    }
+    public User findByUserName(String username) {
+       return userRepository.findByUsername(username);
     }
 }
